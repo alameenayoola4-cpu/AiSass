@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aegis Command - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-highest": "#2f3542",
+                      "surface-variant": "#2f3542",
+                      "on-tertiary-fixed": "#001e2f",
+                      "on-primary-fixed-variant": "#004f4f",
+                      "on-surface-variant": "#b9cac9",
+                      "on-primary-container": "#007070",
+                      "surface-container": "#1a202c",
+                      "on-primary": "#003737",
+                      "on-secondary-fixed": "#23005b",
+                      "on-surface": "#dde2f3",
+                      "on-secondary": "#3c0090",
+                      "secondary-container": "#7000ff",
+                      "secondary-fixed-dim": "#d1bcff",
+                      "outline": "#839493",
+                      "tertiary-container": "#c9e6ff",
+                      "secondary-fixed": "#e9ddff",
+                      "on-tertiary-fixed-variant": "#004c6e",
+                      "error": "#ffb4ab",
+                      "inverse-surface": "#dde2f3",
+                      "tertiary-fixed": "#c9e6ff",
+                      "on-error-container": "#ffdad6",
+                      "inverse-on-surface": "#2b303d",
+                      "secondary": "#d1bcff",
+                      "surface-dim": "#0e131f",
+                      "primary-fixed-dim": "#00dddd",
+                      "primary-container": "#00fbfb",
+                      "on-tertiary-container": "#006b99",
+                      "inverse-primary": "#006a6a",
+                      "tertiary": "#ffffff",
+                      "primary": "#ffffff",
+                      "primary-fixed": "#00fbfb",
+                      "background": "#0e131f",
+                      "surface-bright": "#343946",
+                      "on-secondary-fixed-variant": "#5700c9",
+                      "surface": "#0e131f",
+                      "error-container": "#93000a",
+                      "on-secondary-container": "#ddcdff",
+                      "on-background": "#dde2f3",
+                      "on-tertiary": "#00344d",
+                      "on-error": "#690005",
+                      "tertiary-fixed-dim": "#89ceff",
+                      "outline-variant": "#3a4a49",
+                      "surface-container-low": "#161c28",
+                      "surface-tint": "#00dddd",
+                      "surface-container-high": "#242a36",
+                      "surface-container-lowest": "#080e1a",
+                      "on-primary-fixed": "#002020"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "section-gap": "48px",
+                      "unit": "4px",
+                      "gutter": "16px",
+                      "container-padding": "24px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Geist"
+                      ],
+                      "data-tabular": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-lg-mobile": [
+                              "Geist"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Geist"
+                      ],
+                      "label-caps": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "data-tabular": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        /* Custom Styles for Cyber-SaaS Aesthetic */
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid;
+            border-image-source: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%);
+            border-image-slice: 1;
+        }
+
+        .glow-button {
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+        
+        .glow-button:hover {
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
+        }
+
+        .data-chip {
+            background-color: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            color: #00fbfb;
+        }
+
+        .ai-insight-border {
+            position: relative;
+            background: rgba(15, 23, 42, 0.6);
+            z-index: 1;
+        }
+        
+        .ai-insight-border::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            background: linear-gradient(90deg, #00fbfb, #7000ff, #00fbfb);
+            background-size: 200% auto;
+            z-index: -1;
+            border-radius: inherit;
+            animation: moveGradient 3s linear infinite;
+        }
+
+        @keyframes moveGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        /* Neural Core Animations */
+        .pulse-ring {
+            animation: pulse 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 251, 251, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(0, 251, 251, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 251, 251, 0); }
+        }
+
+        /* Entrance Animations */
+        .animate-enter {
+            opacity: 0;
+            animation: slideUpFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes slideUpFadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+        .delay-500 { animation-delay: 500ms; }
+
+        /* Shimmer Effect */
+        .shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.08), transparent);
+            transform: translateX(-100%);
+            animation: scanLine 3s infinite linear;
+            pointer-events: none;
+            z-index: 10;
+        }
+        @keyframes scanLine {
+            100% { transform: translateX(100%); }
+        }
+
+        /* Hover Glow Effect */
+        .hover-glow-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .hover-glow-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(0, 255, 255, 0.15), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .hover-glow-card:hover::before {
+            opacity: 1;
+        }
+        .hover-glow-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Terminal Cursor */
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background-color: #00fbfb;
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00fbfb;
+            border-radius: 4px;
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row overflow-hidden">
+<!-- Mobile Top App Bar (Hidden on md+) -->
+<header class="md:hidden w-full sticky top-0 z-50 bg-surface/40 backdrop-blur-xl border-b border-white/5 shadow-[0_0_30px_rgba(0,255,255,0.05)] flex items-center justify-between px-gutter py-unit h-16">
+<div class="font-display-lg text-headline-lg font-bold text-primary tracking-tighter">Aegis Command</div>
+<div class="flex gap-4 text-primary">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden md:flex bg-surface-container-lowest/60 backdrop-blur-2xl h-screen w-64 fixed left-0 top-0 z-40 border-r border-white/10 shadow-xl flex-col h-full py-6">
+<div class="px-6 mb-8 flex flex-col gap-1">
+<div class="font-display-lg text-headline-lg text-primary font-bold tracking-tighter">Core Engine</div>
+<div class="font-data-tabular text-data-tabular text-primary-fixed-dim flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-fixed-dim animate-pulse"></span>
+                AI Active: Stable
+            </div>
+</div>
+<nav class="flex-1 flex flex-col gap-2 mt-4 px-2">
+<!-- Active State -->
+<a class="flex items-center gap-3 bg-primary/10 text-primary border-r-2 border-primary px-4 py-3 rounded-l-lg transition-all duration-200 ease-in-out" href="index.html">
+<span class="material-symbols-outlined nav-active-glow text-primary-container" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+<span class="font-body-md text-body-md font-bold nav-active-glow">Command</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-white/5 hover:text-primary rounded-lg transition-all duration-200 ease-in-out group" href="operation.html">
+<span class="material-symbols-outlined group-hover:text-primary" style="font-variation-settings: 'FILL' 0;">account_tree</span>
+<span class="font-body-md text-body-md font-medium">Operations</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-white/5 hover:text-primary rounded-lg transition-all duration-200 ease-in-out group" href="intel.html">
+<span class="material-symbols-outlined group-hover:text-primary" style="font-variation-settings: 'FILL' 0;">insights</span>
+<span class="font-body-md text-body-md font-medium">Intelligence</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-white/5 hover:text-primary rounded-lg transition-all duration-200 ease-in-out group" href="sys.html">
+<span class="material-symbols-outlined group-hover:text-primary" style="font-variation-settings: 'FILL' 0;">settings_suggest</span>
+<span class="font-body-md text-body-md font-medium">System</span>
+</a>
+</nav>
+<div class="px-4 mt-auto mb-6">
+<button class="w-full btn-cyan font-label-caps text-label-caps font-bold py-3 px-4 rounded-DEFAULT flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+                Launch Simulation
+            </button>
+</div>
+<div class="px-6 border-t border-white/5 pt-4 flex flex-col gap-3">
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">help_center</span>
+<span class="font-label-caps text-label-caps">Help</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">terminal</span>
+<span class="font-label-caps text-label-caps">Logs</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 flex flex-col h-screen overflow-y-auto overflow-x-hidden p-container-padding relative">
+<!-- Background Ambient Glow -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary-fixed/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
+<!-- Dashboard Header -->
+<div class="flex justify-between items-end mb-section-gap relative z-10 pt-4 md:pt-0 animate-enter">
+<div>
+<h1 class="font-display-lg text-display-lg text-primary tracking-tighter">Command Node Alpha</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Real-time system overview and predictive analytics.</p>
+</div>
+<div class="hidden md:flex gap-4">
+<div class="glass-panel px-4 py-2 rounded flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-fixed animate-pulse"></span>
+<span class="font-data-tabular text-data-tabular text-primary">SYS: NOMINAL</span>
+</div>
+<div class="glass-panel px-4 py-2 rounded flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter relative z-10 flex-1 mb-24">
+<!-- Neural Core (Centerpiece) -->
+<div class="col-span-1 md:col-span-8 glass-card rounded-xl p-6 flex flex-col relative min-h-[400px] animate-enter shimmer delay-100">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-lg md:text-headline-lg text-headline-lg-mobile text-primary">Neural Core Activity</h2>
+<span class="data-chip px-2 py-1 rounded font-data-tabular text-data-tabular">LIVE SYNC</span>
+</div>
+<div class="flex-1 flex items-center justify-center relative">
+<!-- Placeholder for actual 3D/Canvas rendering -->
+<div class="w-64 h-64 rounded-full border border-white/10 flex items-center justify-center relative">
+<!-- Orbit Rings -->
+<div class="absolute inset-0 border border-primary-fixed/30 rounded-full animate-[spin_8s_linear_infinite]" style="border-top-color: transparent; border-bottom-color: transparent;"></div>
+<div class="absolute inset-4 border border-secondary-container/50 rounded-full animate-[spin_12s_linear_infinite_reverse]" style="border-left-color: transparent; border-right-color: transparent;"></div>
+<div class="absolute inset-8 border border-white/10 rounded-full animate-[spin_20s_linear_infinite]"></div>
+<!-- Core -->
+<div class="w-24 h-24 bg-primary-fixed/20 rounded-full pulse-ring flex items-center justify-center backdrop-blur-md border border-primary-fixed/50">
+<span class="material-symbols-outlined text-4xl text-primary-fixed" data-icon="hub">hub</span>
+</div>
+<!-- Data Nodes (Static for visual) -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-primary rounded-full shadow-[0_0_10px_#fff]"></div>
+<div class="absolute bottom-4 right-4 w-3 h-3 bg-secondary rounded-full shadow-[0_0_8px_#d1bcff]"></div>
+</div>
+</div>
+<div class="absolute bottom-6 left-6 right-6 flex justify-between border-t border-white/10 pt-4">
+<div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">PROCESSING LOAD</div>
+<div class="font-data-tabular text-data-tabular text-primary text-xl">84.2 TFLOPS</div>
+</div>
+<div class="text-right">
+<div class="font-label-caps text-label-caps text-on-surface-variant">NODE LATENCY</div>
+<div class="font-data-tabular text-data-tabular text-primary text-xl">12ms</div>
+</div>
+</div>
+</div>
+<!-- AI Insight Feed -->
+<div class="col-span-1 md:col-span-4 flex flex-col gap-gutter">
+<h3 class="font-body-md text-body-md text-on-surface-variant uppercase tracking-wider mb-2 animate-enter delay-200">Tactical Insights</h3>
+<div class="ai-insight-border hover-glow-card rounded-lg p-4 animate-enter delay-200">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-caps text-label-caps text-primary-fixed">AI RECOMMENDATION</span>
+</div>
+<p class="font-body-md text-body-md text-primary mb-3">Re-routing power from Sector 4 to Sector 7 will optimize processing efficiency by 14% based on current load predictions.</p>
+<button class="text-xs border border-primary-fixed/50 text-primary-fixed px-3 py-1 rounded hover:bg-primary-fixed/10 transition-colors relative z-10 cursor-pointer">Execute</button>
+</div>
+<div class="glass-panel hover-glow-card rounded-lg p-4 animate-enter delay-300">
+<div class="flex items-center gap-2 mb-2 text-error">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+<span class="font-label-caps text-label-caps">ANOMALY DETECTED</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Unusual traffic pattern observed in gateway proxy. Quarantine protocols recommended.</p>
+</div>
+<!-- Interactive Terminal -->
+<div class="glass-panel rounded-lg p-4 h-32 flex flex-col font-data-tabular text-data-tabular animate-enter delay-400 overflow-hidden relative" id="terminal-container">
+<div class="flex items-center gap-2 mb-2 text-on-surface-variant sticky top-0 z-10 pb-1 border-b border-white/5">
+<span class="material-symbols-outlined text-[16px]" data-icon="terminal">terminal</span>
+<span class="font-label-caps text-label-caps">LIVE TERMINAL</span>
+</div>
+<div class="text-xs text-primary-fixed/80 flex-1 overflow-y-auto break-all scrollbar-hide space-y-1 flex flex-col justify-end pb-2" id="terminal-output">
+<!-- Logs will be injected here via JS -->
+</div>
+</div>
+</div>
+<!-- KPI Row -->
+<div class="col-span-1 md:col-span-4 glass-card shimmer rounded-xl p-5 border-l-2 border-l-primary-fixed animate-enter delay-200">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1">GLOBAL REVENUE (24H)</div>
+<div class="font-display-lg text-[32px] font-bold text-primary tracking-tight mb-2">$2.4M</div>
+<div class="flex items-center gap-1 text-primary-fixed font-data-tabular text-data-tabular text-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span>
+                    +4.2% vs yesterday
+                </div>
+</div>
+<div class="col-span-1 md:col-span-4 glass-card shimmer rounded-xl p-5 border-l-2 border-l-secondary-container animate-enter delay-300">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1">EFFICIENCY INDEX</div>
+<div class="font-display-lg text-[32px] font-bold text-primary tracking-tight mb-2">98.7%</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-data-tabular text-data-tabular text-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="check_circle">check_circle</span>
+                    Optimal operating range
+                </div>
+</div>
+<div class="col-span-1 md:col-span-4 glass-card shimmer rounded-xl p-5 border-l-2 border-l-error animate-enter delay-400">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1">THREAT LEVEL</div>
+<div class="font-display-lg text-[32px] font-bold text-primary tracking-tight mb-2">ELEVATED</div>
+<div class="w-full bg-surface-container-high h-1 rounded mt-2 overflow-hidden">
+<div class="bg-error h-full w-[65%]"></div>
+</div>
+</div>
+<!-- Global Ops Map Placeholder -->
+<div class="col-span-1 md:col-span-12 glass-card shimmer rounded-xl p-6 h-[300px] relative overflow-hidden group animate-enter delay-500">
+<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=2000&amp;q=80')] bg-cover bg-center opacity-20 mix-blend-luminosity transition-transform duration-1000 group-hover:scale-105" data-alt="A highly detailed, futuristic digital map visualization on a dark screen. The map displays global continents outlined in glowing cyan lines, with distinct nodes of activity represented by bright, pulsating points of light in varying colors like cyan and magenta. The visual style is cyber-tech and data-heavy, set against a deep navy background to emphasize a high-tech command center aesthetic. The overall mood is analytical, authoritative, and technologically advanced."></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="relative z-10 flex justify-between items-start">
+<div>
+<h2 class="font-headline-lg md:text-headline-lg text-headline-lg-mobile text-primary">Global Ops</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Active connection mapping</p>
+</div>
+<button class="bg-surface-container/50 border border-white/10 text-primary px-3 py-1 rounded font-label-caps text-label-caps hover:bg-white/10 transition-colors z-10 relative cursor-pointer">EXPAND VIEW</button>
+</div>
+<!-- Map Node Overlays -->
+<div class="absolute top-[40%] left-[30%] w-3 h-3 bg-primary-fixed rounded-full shadow-[0_0_15px_#00fbfb] animate-ping"></div>
+<div class="absolute top-[60%] right-[25%] w-2 h-2 bg-secondary-container rounded-full shadow-[0_0_10px_#7000ff]"></div>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Navigation (Hidden on md+) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-lowest/90 backdrop-blur-md border-t border-white/5 flex justify-around items-center h-16 z-50 px-2 pb-safe">
+<a class="flex flex-col items-center justify-center w-full h-full text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view" data-weight="fill" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+<span class="font-label-caps text-[10px] mt-1">Command</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span class="font-label-caps text-[10px] mt-1">Ops</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-label-caps text-[10px] mt-1">Intel</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="settings_suggest">settings_suggest</span>
+<span class="font-label-caps text-[10px] mt-1">System</span>
+</a>
+</nav>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Hover Glow Effect
+        const glowCards = document.querySelectorAll('.hover-glow-card');
+        glowCards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Interactive Terminal Simulation
+        const terminalOutput = document.getElementById('terminal-output');
+        const logs = [
+            "Initializing Aegis Core v4.2...",
+            "Establishing secure connection to Node Alpha.",
+            "Connection established. Latency: 12ms.",
+            "[WARN] Sub-optimal routing detected in Sector 4.",
+            "Rerouting power... Optimization complete.",
+            "Scanning for anomalies...",
+            "No new anomalies detected.",
+            "Syncing remote databases...",
+            "Database sync successful.",
+            "Awaiting command input..."
+        ];
+        
+        let logIndex = 0;
+        
+        function addLog() {
+            if (!terminalOutput) return;
+            
+            // Remove existing cursor
+            const existingCursor = terminalOutput.querySelector('.terminal-cursor');
+            if (existingCursor) existingCursor.remove();
+
+            const logLine = document.createElement('div');
+            logLine.className = 'opacity-80 transition-opacity duration-300 w-full';
+            
+            // Add new text with cursor
+            logLine.innerHTML = `> ${logs[logIndex % logs.length]}<span class="terminal-cursor"></span>`;
+            
+            terminalOutput.appendChild(logLine);
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            
+            logIndex++;
+            
+            // Keep only the last 6 lines to fit the small container
+            while (terminalOutput.children.length > 6) {
+                terminalOutput.removeChild(terminalOutput.firstChild);
+            }
+            
+            // Random delay for next log to simulate real activity
+            setTimeout(addLog, Math.random() * 2000 + 800);
+        }
+        
+        // Start terminal sequence
+        setTimeout(addLog, 1500);
+    });
+</script>
+</body></html>
