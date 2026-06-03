@@ -254,20 +254,197 @@
         .command-list { flex: 1; overflow-y: auto; padding: 8px 0; }
         .command-item { padding: 12px 20px; cursor: pointer; color: rgba(255, 255, 255, 0.7); transition: all 0.2s; border-left: 2px solid transparent; }
         .command-item:hover, .command-item.selected { background: rgba(0, 255, 255, 0.1); color: #00fbfb; border-left-color: #00fbfb; }
-        .ai-chatbot { position: fixed; bottom: 20px; right: 20px; width: 320px; height: 400px; background: rgba(14, 19, 31, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(0, 255, 255, 0.3); border-radius: 16px; display: flex; flex-direction: column; z-index: 900; animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .ai-header { padding: 16px; border-bottom: 1px solid rgba(0, 255, 255, 0.2); display: flex; align-items: center; gap: 12px; }
-        .ai-avatar { width: 32px; height: 32px; border-radius: 50%; background: rgba(0, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(0, 255, 255, 0.4); animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.05); opacity: 1; } }
-        .chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
-        .message { padding: 10px 12px; border-radius: 8px; font-size: 13px; line-height: 1.4; animation: slideUpFadeIn 0.3s ease-out; }
-        .message.user { background: rgba(0, 255, 255, 0.15); color: #00fbfb; align-self: flex-end; max-width: 80%; border: 1px solid rgba(0, 255, 255, 0.3); }
-        .message.ai { background: rgba(112, 0, 255, 0.1); color: rgba(255, 255, 255, 0.9); align-self: flex-start; max-width: 85%; border: 1px solid rgba(112, 0, 255, 0.3); }
-        @keyframes slideUpFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .chat-input { border-top: 1px solid rgba(0, 255, 255, 0.2); padding: 12px; display: flex; gap: 8px; background: rgba(0, 0, 0, 0.3); }
-        .chat-input input { flex: 1; background: rgba(0, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.2); color: #00fbfb; padding: 8px 12px; border-radius: 6px; font-size: 12px; outline: none; font-family: inherit; }
-        .chat-send-btn { background: rgba(0, 255, 255, 0.2); border: 1px solid rgba(0, 255, 255, 0.4); color: #00fbfb; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-        .chat-send-btn:hover { background: rgba(0, 255, 255, 0.4); box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); }
+        
+        .ai-chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 380px;
+            height: 500px;
+            background: rgba(14, 19, 31, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 255, 255, 0.15);
+            display: none;
+            flex-direction: column;
+            z-index: 950;
+            animation: chatbotOpen 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .ai-chatbot.open {
+            display: flex;
+        }
+        
+        @keyframes chatbotOpen {
+            from { 
+                opacity: 0; 
+                transform: scale(0.8) translateY(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        /* Floating Action Button */
+        .chatbot-fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00fbfb 0%, #00dddd 100%);
+            border: 2px solid rgba(0, 255, 255, 0.5);
+            box-shadow: 0 8px 24px rgba(0, 255, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 900;
+            transition: all 0.3s ease;
+            animation: fabPulse 2s infinite;
+        }
+        
+        .chatbot-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 32px rgba(0, 255, 255, 0.4), inset 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        .chatbot-fab.hidden {
+            display: none;
+        }
+        
+        @keyframes fabPulse {
+            0%, 100% { box-shadow: 0 8px 24px rgba(0, 255, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.2); }
+            50% { box-shadow: 0 8px 24px rgba(0, 255, 255, 0.5), inset 0 0 20px rgba(0, 255, 255, 0.4); }
+        }
+
+        .ai-header {
+            padding: 16px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        
+        .ai-header-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+        
+        .ai-close-btn {
+            background: none;
+            border: none;
+            color: #00fbfb;
+            cursor: pointer;
+            font-size: 20px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        
+        .ai-close-btn:hover {
+            background: rgba(0, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        .ai-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(0, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-center;
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .message {
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.4;
+            animation: slideUpFadeIn 0.3s ease-out;
+        }
+        
+        .message.user {
+            background: rgba(0, 255, 255, 0.15);
+            color: #00fbfb;
+            align-self: flex-end;
+            max-width: 80%;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+        
+        .message.ai {
+            background: rgba(112, 0, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            align-self: flex-start;
+            max-width: 85%;
+            border: 1px solid rgba(112, 0, 255, 0.3);
+        }
+
+        .chat-input {
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+            padding: 12px;
+            display: flex;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .chat-input input {
+            flex: 1;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            color: #00fbfb;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            outline: none;
+            font-family: inherit;
+        }
+        
+        .chat-input input::placeholder {
+            color: rgba(0, 255, 255, 0.3);
+        }
+        
+        .chat-send-btn {
+            background: rgba(0, 255, 255, 0.2);
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            color: #00fbfb;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-size: 16px;
+        }
+        
+        .chat-send-btn:hover {
+            background: rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
     </style>
 </head>
 <body class="flex flex-col md:flex-row h-screen overflow-hidden antialiased">
@@ -605,17 +782,90 @@
         document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openCommandPalette(); } });
         
         // AI Chatbot
-        const chatbot = document.createElement('div');
-        chatbot.className = 'ai-chatbot';
-        chatbot.innerHTML = `<div class="ai-header"><div class="ai-avatar"><span class="material-symbols-outlined" style="font-size: 18px;">auto_awesome</span></div><div><div style="font-weight: 600; color: #00fbfb; font-size: 14px;">Aegis AI</div><div style="font-size: 11px; color: rgba(255,255,255,0.5);">Always online</div></div></div><div class="chat-messages" id="chat-messages"><div class="message ai">Hello! How can I help?</div></div><div class="chat-input"><input type="text" placeholder="Ask me..." id="chat-input" /><button class="chat-send-btn" id="chat-send">→</button></div>`;
-        document.body.appendChild(chatbot);
-        const chatInput = document.getElementById('chat-input');
-        const chatSend = document.getElementById('chat-send');
-        const chatMessages = document.getElementById('chat-messages');
-        const aiResponses = ["That's interesting! Let me analyze...", "Processing your request...", "I'm constantly monitoring systems."];
-        function sendMessage() { const msg = chatInput.value.trim(); if (!msg) return; const userMsg = document.createElement('div'); userMsg.className = 'message user'; userMsg.textContent = msg; chatMessages.appendChild(userMsg); chatInput.value = ''; setTimeout(() => { const aiMsg = document.createElement('div'); aiMsg.className = 'message ai'; aiMsg.textContent = aiResponses[Math.floor(Math.random() * aiResponses.length)]; chatMessages.appendChild(aiMsg); chatMessages.scrollTop = chatMessages.scrollHeight; }, 500); }
-        chatSend.addEventListener('click', sendMessage);
-        chatInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
+        function initChatbot() {
+            // Create Floating Action Button
+            const fab = document.createElement('div');
+            fab.className = 'chatbot-fab';
+            fab.innerHTML = '<span class="material-symbols-outlined" style="font-size: 28px; color: #0e131f; font-weight: 600;">forum</span>';
+            document.body.appendChild(fab);
+
+            // Create Chatbot Modal
+            const chatbot = document.createElement('div');
+            chatbot.className = 'ai-chatbot';
+            chatbot.innerHTML = `
+                <div class="ai-header">
+                    <div class="ai-header-title">
+                        <div class="ai-avatar">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">auto_awesome</span>
+                        </div>
+                        <div>
+                            <div style="font-weight: 600; color: #00fbfb; font-size: 14px;">Aegis AI</div>
+                            <div style="font-size: 11px; color: rgba(255,255,255,0.5);">Online</div>
+                        </div>
+                    </div>
+                    <button class="ai-close-btn" id="close-chat">✕</button>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message ai">Hello! I'm Aegis AI. How can I assist you today?</div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" placeholder="Ask me anything..." id="chat-input" />
+                    <button class="chat-send-btn" id="chat-send">→</button>
+                </div>
+            `;
+            document.body.appendChild(chatbot);
+
+            // Open/Close Handlers
+            fab.addEventListener('click', () => {
+                chatbot.classList.add('open');
+                fab.classList.add('hidden');
+            });
+
+            document.getElementById('close-chat').addEventListener('click', () => {
+                chatbot.classList.remove('open');
+                fab.classList.remove('hidden');
+            });
+
+            const chatInput = document.getElementById('chat-input');
+            const chatSend = document.getElementById('chat-send');
+            const chatMessages = document.getElementById('chat-messages');
+            
+            const aiResponses = [
+                "That's an interesting question. Let me analyze the data...",
+                "Based on current metrics, I'd recommend optimizing your routing protocol.",
+                "I've identified a pattern in the network traffic. Shall I investigate further?",
+                "Processing your request. This should only take a moment.",
+                "The system is operating at peak efficiency right now.",
+                "I'm constantly monitoring for anomalies. Stay alert!"
+            ];
+
+            function sendMessage() {
+                const msg = chatInput.value.trim();
+                if (!msg) return;
+
+                const userMsg = document.createElement('div');
+                userMsg.className = 'message user';
+                userMsg.textContent = msg;
+                chatMessages.appendChild(userMsg);
+
+                chatInput.value = '';
+
+                setTimeout(() => {
+                    const aiMsg = document.createElement('div');
+                    aiMsg.className = 'message ai';
+                    aiMsg.textContent = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+                    chatMessages.appendChild(aiMsg);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 500);
+            }
+
+            chatSend.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', e => {
+                if (e.key === 'Enter') sendMessage();
+            });
+        }
+        
+        initChatbot();
     });
 </script>
 </body></html>
