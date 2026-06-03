@@ -284,6 +284,302 @@
             50% { opacity: 0; }
         }
 
+        /* Particle Background */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            border-radius: 50%;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        /* Holographic Glitch Effect */
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        
+        .glitch {
+            animation: glitch 0.3s infinite;
+        }
+
+        /* Typewriter Effect */
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typewriter 2s steps(40, end) 1;
+        }
+
+        /* Matrix Rain */
+        @keyframes matrixRain {
+            0% { transform: translateY(-100%); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100%); opacity: 0; }
+        }
+        
+        .matrix-rain {
+            position: fixed;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 14px;
+            color: rgba(0, 255, 255, 0.3);
+            pointer-events: none;
+            z-index: 1;
+            animation: matrixRain 8s linear infinite;
+        }
+
+        /* Wave Animation */
+        @keyframes wave {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .wave {
+            animation: wave 2s infinite;
+        }
+
+        /* Neon Glow Enhanced */
+        @keyframes neonGlow {
+            0%, 100% { text-shadow: 0 0 10px #00fbfb, 0 0 20px #00dddd; }
+            50% { text-shadow: 0 0 20px #00fbfb, 0 0 40px #00dddd, 0 0 60px #00fbfb; }
+        }
+        
+        .neon-glow {
+            animation: neonGlow 2s ease-in-out infinite;
+        }
+
+        /* Hexagon shape */
+        .hexagon {
+            width: 200px;
+            height: 115px;
+            clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+        }
+
+        /* RGB Split/Glitch */
+        @keyframes rgbShift {
+            0% { text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff; }
+            50% { text-shadow: -1px 0 #ff00ff, 1px 0 #00ffff; }
+            100% { text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff; }
+        }
+        
+        .rgb-shift:hover {
+            animation: rgbShift 0.3s infinite;
+        }
+
+        /* Command Palette */
+        .command-palette {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 600px;
+            background: rgba(14, 19, 31, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 255, 255, 0.2);
+            z-index: 1000;
+            max-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            animation: slideDown 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translate(-50%, -55%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .command-input {
+            border: none;
+            background: transparent;
+            color: #00fbfb;
+            padding: 16px 20px;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 16px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+            outline: none;
+        }
+        
+        .command-input::placeholder {
+            color: rgba(0, 255, 255, 0.4);
+        }
+
+        .command-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+        
+        .command-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.2s;
+            border-left: 2px solid transparent;
+        }
+        
+        .command-item:hover,
+        .command-item.selected {
+            background: rgba(0, 255, 255, 0.1);
+            color: #00fbfb;
+            border-left-color: #00fbfb;
+        }
+
+        /* AI Chatbot */
+        .ai-chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            height: 400px;
+            background: rgba(14, 19, 31, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 255, 255, 0.15);
+            display: flex;
+            flex-direction: column;
+            z-index: 900;
+            animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ai-header {
+            padding: 16px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .ai-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(0, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-center;
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .message {
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.4;
+            animation: slideUpFadeIn 0.3s ease-out;
+        }
+        
+        .message.user {
+            background: rgba(0, 255, 255, 0.15);
+            color: #00fbfb;
+            align-self: flex-end;
+            max-width: 80%;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+        
+        .message.ai {
+            background: rgba(112, 0, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            align-self: flex-start;
+            max-width: 85%;
+            border: 1px solid rgba(112, 0, 255, 0.3);
+        }
+
+        .chat-input {
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+            padding: 12px;
+            display: flex;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .chat-input input {
+            flex: 1;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            color: #00fbfb;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            outline: none;
+            font-family: inherit;
+        }
+        
+        .chat-input input::placeholder {
+            color: rgba(0, 255, 255, 0.3);
+        }
+        
+        .chat-send-btn {
+            background: rgba(0, 255, 255, 0.2);
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            color: #00fbfb;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-size: 16px;
+        }
+        
+        .chat-send-btn:hover {
+            background: rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Dark Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 500;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            color: #00fbfb;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 4px;
@@ -513,6 +809,37 @@
             });
         });
 
+        // Particle Background Generator
+        function createParticles() {
+            const particleCount = 30;
+            const container = document.body;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 3 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * window.innerWidth + 'px';
+                particle.style.top = Math.random() * window.innerHeight + 'px';
+                particle.style.background = Math.random() > 0.5 ? '#00fbfb' : '#7000ff';
+                particle.style.boxShadow = `0 0 ${Math.random() * 20 + 10}px currentColor`;
+                particle.style.animation = `float ${Math.random() * 20 + 20}s infinite linear`;
+                container.appendChild(particle);
+            }
+        }
+        
+        // Add keyframe for particles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% { transform: translateY(0px) translateX(0px); opacity: 0.5; }
+                50% { opacity: 1; }
+                100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        createParticles();
+
         // Interactive Terminal Simulation
         const terminalOutput = document.getElementById('terminal-output');
         const logs = [
@@ -559,6 +886,168 @@
         
         // Start terminal sequence
         setTimeout(addLog, 1500);
+
+        // Command Palette (Cmd/Ctrl+K)
+        let commandPaletteOpen = false;
+        const commands = [
+            { name: 'Go to Dashboard', icon: 'grid_view', action: () => window.location.href = 'index.html' },
+            { name: 'Open Operations', icon: 'account_tree', action: () => window.location.href = 'operation.html' },
+            { name: 'View Intelligence', icon: 'insights', action: () => window.location.href = 'intel.html' },
+            { name: 'System Settings', icon: 'settings_suggest', action: () => window.location.href = 'sys.html' },
+            { name: 'Launch Simulation', icon: 'rocket_launch', action: () => alert('Launching simulation...') },
+            { name: 'View Logs', icon: 'terminal', action: () => alert('Opening logs...') },
+            { name: 'Help & Support', icon: 'help_center', action: () => alert('Opening help...') }
+        ];
+
+        function openCommandPalette() {
+            if (commandPaletteOpen) return;
+            commandPaletteOpen = true;
+
+            const backdrop = document.createElement('div');
+            backdrop.className = 'fixed inset-0 z-950';
+            backdrop.style.background = 'rgba(0,0,0,0.5)';
+            backdrop.style.backdropFilter = 'blur(4px)';
+            backdrop.onclick = closeCommandPalette;
+            document.body.appendChild(backdrop);
+
+            const palette = document.createElement('div');
+            palette.className = 'command-palette';
+            
+            palette.innerHTML = `
+                <input type="text" class="command-input" placeholder="Search commands..." id="cmd-input" autofocus />
+                <div class="command-list" id="cmd-list">
+                    ${commands.map((cmd, i) => `
+                        <div class="command-item" data-index="${i}">
+                            <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle; margin-right: 8px;">${cmd.icon}</span>
+                            ${cmd.name}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            document.body.appendChild(palette);
+
+            const input = document.getElementById('cmd-input');
+            const cmdList = document.getElementById('cmd-list');
+            let selectedIndex = 0;
+
+            input.addEventListener('input', e => {
+                const query = e.target.value.toLowerCase();
+                const items = cmdList.querySelectorAll('.command-item');
+                items.forEach((item, i) => {
+                    if (commands[i].name.toLowerCase().includes(query)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                selectedIndex = 0;
+                updateSelection();
+            });
+
+            input.addEventListener('keydown', e => {
+                const visibleItems = Array.from(cmdList.querySelectorAll('.command-item')).filter(i => i.style.display !== 'none');
+                
+                if (e.key === 'ArrowDown') {
+                    selectedIndex = (selectedIndex + 1) % visibleItems.length;
+                    updateSelection();
+                } else if (e.key === 'ArrowUp') {
+                    selectedIndex = (selectedIndex - 1 + visibleItems.length) % visibleItems.length;
+                    updateSelection();
+                } else if (e.key === 'Enter') {
+                    const selected = visibleItems[selectedIndex];
+                    if (selected) {
+                        commands[selected.dataset.index].action();
+                        closeCommandPalette();
+                    }
+                } else if (e.key === 'Escape') {
+                    closeCommandPalette();
+                }
+            });
+
+            function updateSelection() {
+                const visibleItems = Array.from(cmdList.querySelectorAll('.command-item')).filter(i => i.style.display !== 'none');
+                cmdList.querySelectorAll('.command-item').forEach(item => item.classList.remove('selected'));
+                if (visibleItems[selectedIndex]) visibleItems[selectedIndex].classList.add('selected');
+            }
+
+            function closeCommandPalette() {
+                palette.remove();
+                backdrop.remove();
+                commandPaletteOpen = false;
+            }
+        }
+
+        document.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                openCommandPalette();
+            }
+        });
+
+        // AI Chatbot
+        function initChatbot() {
+            const chatbot = document.createElement('div');
+            chatbot.className = 'ai-chatbot';
+            chatbot.innerHTML = `
+                <div class="ai-header">
+                    <div class="ai-avatar">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">auto_awesome</span>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; color: #00fbfb; font-size: 14px;">Aegis AI Assistant</div>
+                        <div style="font-size: 11px; color: rgba(255,255,255,0.5);">Always online</div>
+                    </div>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message ai">Hello! I'm Aegis AI. How can I assist you today?</div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" placeholder="Ask me anything..." id="chat-input" />
+                    <button class="chat-send-btn" id="chat-send">→</button>
+                </div>
+            `;
+            document.body.appendChild(chatbot);
+
+            const chatInput = document.getElementById('chat-input');
+            const chatSend = document.getElementById('chat-send');
+            const chatMessages = document.getElementById('chat-messages');
+            
+            const aiResponses = [
+                "That's an interesting question. Let me analyze the data...",
+                "Based on current metrics, I'd recommend optimizing your routing protocol.",
+                "I've identified a pattern in the network traffic. Shall I investigate further?",
+                "Processing your request. This should only take a moment.",
+                "The system is operating at peak efficiency right now.",
+                "I'm constantly monitoring for anomalies. Stay alert!"
+            ];
+
+            function sendMessage() {
+                const msg = chatInput.value.trim();
+                if (!msg) return;
+
+                const userMsg = document.createElement('div');
+                userMsg.className = 'message user';
+                userMsg.textContent = msg;
+                chatMessages.appendChild(userMsg);
+
+                chatInput.value = '';
+
+                setTimeout(() => {
+                    const aiMsg = document.createElement('div');
+                    aiMsg.className = 'message ai';
+                    aiMsg.textContent = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+                    chatMessages.appendChild(aiMsg);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 500);
+            }
+
+            chatSend.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', e => {
+                if (e.key === 'Enter') sendMessage();
+            });
+        }
+
+        initChatbot();
     });
 </script>
 </body></html>
