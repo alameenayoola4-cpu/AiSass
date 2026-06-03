@@ -96,25 +96,39 @@
     </script>
 <style>
         body {
-            background-color: theme('colors.background');
-            color: theme('colors.on-background');
-            overflow-x: hidden;
-        }
-
-        /* Glassmorphism Utilities */
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background-color: #0e131f; /* background */
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(0, 255, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(112, 0, 255, 0.03) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: #dde2f3; /* on-background */
         }
         
-        .glass-panel-floating {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        
+        .glass-panel-interactive {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .glass-panel-interactive:hover {
+            background: rgba(15, 23, 42, 0.7);
+            border-color: rgba(0, 255, 255, 0.5);
+            box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.2), inset 0 0 10px rgba(0, 255, 255, 0.05);
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .glass-panel-interactive.error-node:hover {
+            border-color: rgba(255, 180, 171, 0.5);
+            box-shadow: 0px 0px 20px rgba(255, 180, 171, 0.2), inset 0 0 10px rgba(255, 180, 171, 0.05);
         }
 
         .ai-insight-border {
@@ -122,46 +136,47 @@
         }
         
         .ai-insight-border::before {
-            content: "";
+            content: '';
             position: absolute;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             border-radius: inherit;
             padding: 1px;
-            background: linear-gradient(45deg, theme('colors.primary-container'), theme('colors.secondary-container'), theme('colors.primary-container'));
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.5), rgba(112, 0, 255, 0.5));
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
-            background-size: 200% 200%;
-            animation: gradientMove 3s linear infinite;
+            opacity: 0.7;
+            animation: borderGlow 4s linear infinite alternate;
         }
 
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes borderGlow {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.8; box-shadow: 0 0 15px rgba(0, 255, 255, 0.2); }
         }
 
-        /* Glowing Button */
-        .btn-cyan-glow {
-            background-color: theme('colors.primary-fixed');
-            color: #000;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-            transition: all 0.3s ease;
+        .btn-cyan {
+            background-color: #00FFFF;
+            color: #002020;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            transition: all 0.2s ease;
         }
         
-        .btn-cyan-glow:hover {
-            box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+        .btn-cyan:hover {
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
             transform: translateY(-1px);
         }
-
-        /* Data Chip */
-        .data-chip-cyan {
-            background: rgba(0, 255, 255, 0.1);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            color: theme('colors.primary-container');
+        
+        .btn-cyan:active {
+            transform: translateY(1px);
         }
 
-        /* Scrollbar */
+        .data-chip {
+            background-color: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            color: #00fbfb;
+        }
+
+        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 4px;
             height: 4px;
@@ -170,65 +185,65 @@
             background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-            background: theme('colors.primary-fixed');
-            border-radius: 4px;
+            background: #00dddd;
+            border-radius: 2px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00fbfb;
         }
 
-        /* Chart Animations */
-        .glow-line {
-            stroke: theme('colors.primary-fixed');
-            stroke-width: 2;
-            fill: none;
-            filter: drop-shadow(0 0 8px theme('colors.primary-fixed'));
-            stroke-dasharray: 1200;
-            stroke-dashoffset: 1200;
-            animation: drawLine 2s ease-out forwards;
-        }
-        
-        .glow-line-secondary {
-            stroke: theme('colors.secondary-container');
-            stroke-width: 2;
-            fill: none;
-            filter: drop-shadow(0 0 8px theme('colors.secondary-container'));
-            stroke-dasharray: 1200;
-            stroke-dashoffset: 1200;
-            animation: drawLine 2.5s ease-out forwards;
+        .nav-active-glow {
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
 
-        @keyframes drawLine {
-            to { stroke-dashoffset: 0; }
+        /* Toggle Effects */
+        .security-card { transition: all 0.3s ease; }
+        .security-card:has(input:checked) {
+            border-color: rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+            background-color: rgba(0, 255, 255, 0.05);
+        }
+        .security-card.killswitch:has(input:checked) {
+            border-color: rgba(255, 180, 171, 0.4);
+            box-shadow: 0 0 20px rgba(255, 180, 171, 0.1);
+            background-color: rgba(255, 180, 171, 0.05);
         }
 
-        /* Gauge Animation */
-        .gauge-fill {
-            stroke-dasharray: 100;
-            stroke-dashoffset: 100;
-            animation: fillGauge 1.5s ease-out forwards;
+        /* Health Metrics Pulse */
+        @keyframes sparklinePulse {
+            0% { opacity: 0.7; box-shadow: 0 0 2px currentColor; }
+            50% { opacity: 1; box-shadow: 0 0 8px currentColor; }
+            100% { opacity: 0.7; box-shadow: 0 0 2px currentColor; }
         }
-        
-        @keyframes fillGauge {
-            to { stroke-dashoffset: 22; } /* 78% */
-        }
-
-        /* Hover glows */
-        .hover-cyan-glow:hover {
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        .sparkline {
+            animation: sparklinePulse 2s ease-in-out infinite;
         }
 
-        /* Node Animations */
-        @keyframes floatNode {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-5px) translateX(2px); }
-            50% { transform: translateY(0) translateX(5px); }
-            75% { transform: translateY(5px) translateX(2px); }
+        /* Data Stream Background */
+        .data-stream-bg {
+            position: relative;
+            overflow: hidden;
         }
-        .node-float-1 { animation: floatNode 6s ease-in-out infinite; }
-        .node-float-2 { animation: floatNode 7s ease-in-out infinite reverse; }
-        .node-float-3 { animation: floatNode 8s ease-in-out infinite 1s; }
-        .node-float-4 { animation: floatNode 5s ease-in-out infinite 2s; }
-        
-        .parallax-wrapper {
-            transition: transform 0.1s ease-out;
+        .data-stream-bg::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 20px,
+                rgba(0, 255, 255, 0.02) 20px,
+                rgba(0, 255, 255, 0.02) 40px
+            );
+            width: 200%;
+            height: 100%;
+            animation: dataStreamMove 15s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+        @keyframes dataStreamMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50%); }
         }
         
         /* Futuristic Effects */
@@ -253,7 +268,6 @@
         .chat-input input { flex: 1; background: rgba(0, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.2); color: #00fbfb; padding: 8px 12px; border-radius: 6px; font-size: 12px; outline: none; font-family: inherit; }
         .chat-send-btn { background: rgba(0, 255, 255, 0.2); border: 1px solid rgba(0, 255, 255, 0.4); color: #00fbfb; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
         .chat-send-btn:hover { background: rgba(0, 255, 255, 0.4); box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); }
-
     </style>
 </head>
 <body class="flex flex-col md:flex-row h-screen overflow-hidden antialiased">
